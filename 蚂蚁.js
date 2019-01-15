@@ -11,7 +11,7 @@
  */
 var myEnergeType = ["test","收集能量"];
 var morningTime = "07:03"; //自己运动能量生成时间
-var handimg = images.read("/sdcard/handPic.bmp");
+var handimg = images.read("/storage/emulated/0/脚本/Alipay-Forest-AutoJs/handPic.bmp");
 unlock();
 sleep(2000);
 mainEntrence();
