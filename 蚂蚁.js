@@ -18,7 +18,8 @@ mainEntrence();
 //程序主入口
 function mainEntrence() {
     //版本检测
-    checkVersion();
+    // 我的版本大于7.0，注释掉才能运行
+    //checkVersion();
     //前置操作-获取权限和设置参数
     prepareThings();
     device.wakeUp();
