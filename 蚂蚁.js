@@ -12,8 +12,9 @@
 var myEnergeType = ["test","收集能量"];
 var morningTime = "07:03"; //自己运动能量生成时间
 var handimg = images.read("/storage/emulated/0/脚本/Alipay-Forest-AutoJs/handPic.bmp");
+var sec_low = 200, sec_1 = 700, sec_2 = 1400;
 unlock();
-sleep(2000);
+sleep(sec_2);
 mainEntrence();
 //程序主入口
 function mainEntrence() {
@@ -56,7 +57,7 @@ function waitPage(type) {
         desc("浇水").findOne();
     }
     //再次容错处理
-    sleep(3000);
+    sleep(sec_2);
 }
 
 /**
@@ -69,13 +70,12 @@ function enterRank() {
     swipe(520, 1600, 520, 400, 1500);
     //swipe(500, 1900, 500, 1000, 1000);
     //swipe(520, 1860, 520, 100);
-    sleep(2500);
+    sleep(sec_1);
     clickByDesc("查看更多好友", 0, true, "程序未找到排行榜入口,脚本退出");
     var i = 0;
     //等待排行榜主页出现
-    sleep(2000);
     while (!textEndsWith("好友排行榜").exists() && i <= 5) {
-        sleep(2000);
+        sleep(sec_2);
         i++;
     }
     if (i >= 5) {
@@ -128,7 +128,7 @@ function enterOthers() {
     while (ePoint == null && textEndsWith("好友排行榜").exists()) {
         //滑动排行榜 root方式的的点击调用.如无root权限,7.0及其以上可采用无障碍模式的相关函数
         swipe(520, 1800, 520, 300, 1000);
-        sleep(3000);
+        sleep(sec_2);
         ePoint = getHasEnergyfriend(1);
         i++;
         var isEnd=isRankEnd();
@@ -164,16 +164,16 @@ function enterOthers() {
                     var posb = pos.bounds();
                     //tLog( posb.centerX());
                     click(posb.centerX(), posb.centerY() - 50);
-                    sleep(2000);
+                    sleep(sec_2);
                 });
             }
             //进去收集完后,递归调用enterOthers
             back();
-            sleep(2000);
+            sleep(sec_2);
             var j = 0;
             //等待返回好有排行榜
             if (!textEndsWith("好友排行榜").exists() && j <= 5) {
-                sleep(2000);
+                sleep(sec_2);
                 j++;
             }
             if (j >= 5) {
@@ -183,7 +183,7 @@ function enterOthers() {
         } else{
             tLog("检测到："+ePoint.x+":"+ePoint.y+"坐标的好友有能量可以收取,但是因为位置太底下，自动滑动位置，并且重新查找！");
             swipe(520, 500, 520, 300, 100);
-            sleep(2000);
+            sleep(sec_2);
         }
         enterOthers();
  
@@ -206,7 +206,7 @@ function collectionMyEnergy() {
        
         if (!checkInMorning) {
             tLog("防止小树的提示遮挡,等待中");
-            sleep(3000);
+            sleep(sec_2);
         }
         //id("J_pop_treedialog_close").findOne();
         //这里存在一定的问题：如果sleep时间短的话，就会出现循环代码在运行，循环之后的代码也在运行，感觉出现了异步，具体原因不明
@@ -214,11 +214,11 @@ function collectionMyEnergy() {
             var posb = pos.bounds();
             //tLog( posb.centerX());
             click(posb.centerX(), posb.centerY() - 50);
-            sleep(2000);
+            sleep(sec_2);
         });
     }
     tLog("自己能量收集完成");
-    sleep(1000);
+    sleep(sec_1);
 }
 
 //--------------以下核心代码，无需改动---------------------
@@ -229,10 +229,10 @@ function enterMyMainPage() {
     launchApp("支付宝");
     tLog("等待支付宝启动");
     var i = 0;
-    sleep(3000);
+    sleep(sec_2);
     //五次尝试蚂蚁森林入口
     while (!textEndsWith("蚂蚁森林").exists() && i <= 5) {
-        sleep(2000);
+        sleep(sec_2);
         i++;
     }
     clickByText("蚂蚁森林", true, "请把蚂蚁森林入口添加到主页我的应用");
@@ -249,7 +249,7 @@ function clickByDesc(energyType, paddingY, noFindExit, exceptionMsg) {
         descEndsWith(energyType).find().forEach(function(pos) {
             var posb = pos.bounds();
             click(posb.centerX(), posb.centerY() - paddingY);
-            sleep(2000);
+            sleep(sec_2);
         });
     } else {
         if (noFindExit != null && noFindExit) {
@@ -288,7 +288,7 @@ function clickByText(energyType, noFindExit, exceptionMsg) {
 function whenComplete() {
     tLog("结束");
     back();
-    sleep(1500);
+    sleep(sec_1);
     back();
     exit();
     home();
@@ -326,14 +326,14 @@ function unlock() {
     if (!device.isScreenOn()) {
         //点亮屏幕
         device.wakeUp();
-        sleep(1000);
+        sleep(sec_1);
         //滑动屏幕到输入密码界面
         swipe(500, 1900, 500, 1000, 1000);
-        sleep(1000);
+        sleep(sec_1);
         //输入四次 1 （密码为1111）其他密码请自行修改 
         //数字键1的像素坐标为（200,1000）
         click(200, 1000);
-        sleep(300);
+        sleep(sec_low);
 
     }
 }
