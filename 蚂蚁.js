@@ -229,7 +229,7 @@ function enterMyMainPage() {
     launchApp("支付宝");
     tLog("等待支付宝启动");
     var i = 0;
-    sleep(sec_2);
+    sleep(3000);
     //五次尝试蚂蚁森林入口
     while (!textEndsWith("蚂蚁森林").exists() && i <= 5) {
         sleep(sec_2);
