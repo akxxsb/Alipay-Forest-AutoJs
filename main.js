@@ -9,7 +9,7 @@ var sec_low = 200,
 
 // 早上3分钟检查一次, 平时20分钟检查一次
 var MORNING_SLEEP_TIME = ONE_MIN * 3;
-var NORMAL_SLEEP_TIME = ONE_SECOND * 20;
+var NORMAL_SLEEP_TIME = ONE_MIN * 20;
 
 function main() {
     prepareThings();
