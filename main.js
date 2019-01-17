@@ -4,12 +4,12 @@ var handimg = images.read("/storage/emulated/0/脚本/Alipay-Forest-AutoJs/handP
 var ONE_SECOND = 1000;
 var ONE_MIN = ONE_SECOND * 60;
 var sec_low = 200,
-    sec_1 = 200,
-    sec_2 = 400;
+    sec_1 = 250,
+    sec_2 = 500;
 
 // 早上3分钟检查一次, 平时20分钟检查一次
-var MORNING_SLEEP_TIME = ONE_MIN * 3;
-var NORMAL_SLEEP_TIME = ONE_MIN * 20;
+var MORNING_SLEEP_TIME = ONE_MIN * 2;
+var NORMAL_SLEEP_TIME = ONE_MIN * 8;
 
 function main() {
     prepareThings();
