@@ -25,18 +25,19 @@ function getCaptureImg() {
 
 //解锁手机屏幕
 function unlock() {
-    var ts = 100,
-        i = 0;
+    var ts = 20,
+        i = 0,
+        long_ts = 200;
     for (i = 0; i < 3; ++i) {
         if (!device.isScreenOn()) {
             wakeUp();
             //滑动屏幕到输入密码界面
             swipe(500, 1600, 500, 700, 502);
-            timepkg.mysleep(ts);
+            timepkg.mysleep(long_ts);
             toastLog("开始解锁");
             //切换大小写
             click(60, 1560);
-            timepkg.mysleep(ts * 2);
+            timepkg.mysleep(long_ts);
 
             click(80, 1400);
             timepkg.mysleep(ts);
@@ -57,7 +58,7 @@ function unlock() {
 
             //切换数字
             click(130, 1710);
-            timepkg.mysleep(ts * 2);
+            timepkg.mysleep(long_ts);
 
             click(141, 1245);
             timepkg.mysleep(ts);

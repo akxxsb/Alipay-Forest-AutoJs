@@ -25,7 +25,10 @@ function getSleepTime() {
     if (isMorningTime()) {
         return constantpkg.MORNING_SLEEP_TIME;
     }
-    return constantpkg.NORMAL_SLEEP_TIME;
+    var rand_l = 0, rand_r = constantpkg.ONE_MIN * 2;
+    var extra = random(rand_l, rand_r) * random(0, 5);
+    var res = constantpkg.NORMAL_SLEEP_TIME + extra;
+    return res;
 }
 
 
