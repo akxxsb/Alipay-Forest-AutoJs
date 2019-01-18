@@ -32,8 +32,9 @@ function mysleep(ms) {
             break;
         }
         if (i % print_interval == 0) {
-            left_sec = parseInt(left / constantpkg.ONE_SECOND);
-            var msg = "total: " + all_sec +  ", left: " + left_sec;
+            var left_sec = parseInt(left / constantpkg.ONE_SECOND);
+            var use_sec = parseInt((cur - begin) / constantpkg.ONE_SECOND);
+            var msg = "total: " + all_sec + ", used: " + use_sec + ", left: " + left_sec;
             toastLog(msg);
         }
     }
