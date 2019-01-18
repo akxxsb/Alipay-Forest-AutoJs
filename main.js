@@ -1,5 +1,5 @@
 var myEnergeType = ["test", "收集能量"];
-var handimg = images.read("/storage/emulated/0/脚本/Alipay-Forest-AutoJs/handPic.bmp");
+var handimg = images.read("./resource/handPic.bmp");
 
 var ONE_SECOND = 1000;
 var ONE_MIN = ONE_SECOND * 60;
@@ -37,11 +37,23 @@ function main() {
 main();
 //程序主入口
 function event_loop() {
+    var now = new Date();
+    var hour = now.getHours();
+    var minu = now.getMinutes();
+    if (hour >= 22) {
+        return true;
+    }
+    if (hour > 0 && hour < 6) {
+        return true;
+    }
+    if (hour == 6 & minu < 40) {
+        return true;
+    }
     console.clear();
     console.hide();
     try {
         unlock();
-        registEvent();
+        //registEvent();
         // 进入蚂蚁森林主页
         enterMyMainPage();
         //收集自己的能量
@@ -56,7 +68,7 @@ function event_loop() {
         tLog(error);
     }
     go_back();
-    delEvent();
+    //delEvent();
 }
 
 
@@ -344,7 +356,7 @@ function isMorningTime() {
     if (hour == 6 && minu >= 50) {
         return true;
     }
-    if (hour == 7 && minu <= 20) {
+    if (hour == 7 && minu <= 50) {
         return true;
     }
     return false;
