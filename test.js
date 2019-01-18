@@ -1,5 +1,6 @@
-var ref = require('./src/device.js');
-ref.getCapturePerm();
+var ref = require('./src/constant.js');
+console.log(ref.HAND_IMG);
+exit();
 
 app.startActivity({
     action: "android.intent.action.VIEW",

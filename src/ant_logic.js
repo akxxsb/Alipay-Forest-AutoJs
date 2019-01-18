@@ -1,7 +1,7 @@
-var util = require('./util.js');
-var time = require('./time.js');
-var dev = require('./device.js');
-var constant = require('./constant.js');
+var utilpkg = require('./util.js');
+var timepkg = require('./time.js');
+var devpkg = require('./device.js');
+var constantpkg = require('./constant.js');
 
 var myEnergeType = ["test", "收集能量"];
 
@@ -16,28 +16,28 @@ function waitPage(type) {
         desc("浇水").findOne();
     }
     //再次容错处理
-    time.mysleep(2000);
+    timepkg.mysleep(2000);
 }
 
 // 进入排行榜
 function enterRank() {
-    dev.wakeUp();
+    devpkg.wakeUp();
     toastLog("进入排行榜");
     swipe(520, 1600, 520, 400, 1500);
     swipe(520, 1600, 520, 400, 1500);
     swipe(520, 1600, 520, 400, 1500);
     //swipe(500, 1900, 500, 1000, 1000);
     //swipe(520, 1860, 520, 100);
-    time.mysleep(constant.SEC_1);
-    dev.clickByDesc("查看更多好友", 0, true, "程序未找到排行榜入口,脚本退出");
+    timepkg.mysleep(constantpkg.SEC_1);
+    utilpkg.clickByDesc("查看更多好友", 0, true, "程序未找到排行榜入口,脚本退出");
     var i = 0;
     //等待排行榜主页出现
     while (!textEndsWith("好友排行榜").exists() && i <= 5) {
-        time.mysleep(constant.SEC_2);
+        timepkg.mysleep(constantpkg.SEC_2);
         i++;
     }
     if (i >= 5) {
-        util.throwException("进入排行榜失败");
+        utilpkg.throwException("进入排行榜失败");
     }
 }
 
@@ -58,13 +58,13 @@ function isRankEnd() {
 
 // 从排行榜获取可收集好友的点击位置
 function getHasEnergyfriend(type) {
-    var img = dev.getCaptureImg();
+    var img = devpkg.getCaptureImg();
 
     //images.save(img, "/sdcard/2.jpg", "jpg", 100);
     var p = null;
     if (type == 1) {
         //因为找多图片点的算法不太好，改进为找小图片。
-        p = findImage(img, constant.HAND_IMG);
+        p = findImage(img, constantpkg.HAND_IMG);
     }
     if (p != null) {
         return p;
@@ -76,7 +76,7 @@ function getHasEnergyfriend(type) {
 
 // 在排行榜页面,循环查找可收集好友
 function enterOthers() {
-    dev.wakeUp();
+    devpkg.wakeUp();
     toastLog("检查排行榜");
     var i = 1;
     var ePoint = getHasEnergyfriend(1);
@@ -84,7 +84,7 @@ function enterOthers() {
     while (ePoint == null && textEndsWith("好友排行榜").exists()) {
         //滑动排行榜 root方式的的点击调用.如无root权限,7.0及其以上可采用无障碍模式的相关函数
         swipe(520, 1800, 520, 300, 1000);
-        time.mysleep(constant.SEC_2);
+        timepkg.mysleep(constantpkg.SEC_2);
         ePoint = getHasEnergyfriend(1);
         i++;
         var isEnd = isRankEnd();
@@ -98,7 +98,7 @@ function enterOthers() {
         }
         //如果连续32次都未检测到可收集好友,无论如何停止查找(由于程序控制了在排行榜界面,且判断了结束标记,基本已经不存在这种情况了)
         else if (i > 32) {
-            util.throwException("程序可能出错,连续" + i + "次未检测到可收集好友");
+            utilpkg.throwException("程序可能出错,连续" + i + "次未检测到可收集好友");
         }
     }
     if (ePoint != null) {
@@ -114,36 +114,36 @@ function enterOthers() {
             var energyRegex = generateCollectionType();
             //匹配获取好友的能量球【数组】
             if (descMatches(energyRegex).exists()) {
-                //这里存在一定的问题：如果time.mysleep时间短的话，就会出现循环代码在运行，循环之后的代码也在运行，感觉出现了异步，具体原因不明
+                //这里存在一定的问题：如果timepkg.mysleep时间短的话，就会出现循环代码在运行，循环之后的代码也在运行，感觉出现了异步，具体原因不明
                 descMatches(energyRegex).find().forEach(function(pos) {
                     var posb = pos.bounds();
                     //toastLog( posb.centerX());
                     click(posb.centerX(), posb.centerY() - 50);
-                    time.mysleep(constant.SEC_2);
+                    timepkg.mysleep(constantpkg.SEC_2);
                 });
             }
             //进去收集完后,递归调用enterOthers
             back();
-            time.mysleep(constant.SEC_2);
+            timepkg.mysleep(constantpkg.SEC_2);
             var j = 0;
             //等待返回好有排行榜
             if (!textEndsWith("好友排行榜").exists() && j <= 5) {
-                time.mysleep(constant.SEC_2);
+                timepkg.mysleep(constantpkg.SEC_2);
                 j++;
             }
             if (j >= 5) {
-                util.throwException("enterOthers错误");
+                utilpkg.throwException("enterOthers错误");
             }
 
         } else {
             toastLog("检测到：" + ePoint.x + ":" + ePoint.y + "坐标的好友有能量可以收取,但是因为位置太底下，自动滑动位置，并且重新查找！");
             swipe(520, 500, 520, 300, 100);
-            time.mysleep(constant.SEC_2);
+            timepkg.mysleep(constantpkg.SEC_2);
         }
         enterOthers();
 
     } else {
-        util.throwException("enterOthers错误");
+        utilpkg.throwException("enterOthers错误");
     }
 }
 
@@ -152,35 +152,35 @@ function goBack() {
     launchApp("支付宝");
     for (var i = 0; i < 3; ++i) {
         back();
-        time.mysleep(constant.SEC_2);
+        timepkg.mysleep(constantpkg.SEC_2);
     }
 }
 
 // 遍历能量类型,收集自己的能量
 function collectionMyEnergy() {
-    dev.wakeUp();
+    devpkg.wakeUp();
     toastLog("遍历能量，收集自己的能量");
     //  /(\s*线下支付$)|(\s*行走$)|(\s*共享单车$)|(\s*地铁购票$)|(\s*网络购票$)|(\s*网购火车票$)|(\s*生活缴费$)|(\s*ETC缴费$)|(\s*电子发票$)|(\s*绿色办公$)|(\s*咸鱼交易$)|(\s*预约挂号$)/
     var energyRegex = generateCollectionType();
     toastLog(energyRegex);
-    var checkInMorning = util.isMorningTime();
+    var checkInMorning = utilpkg.isMorningTime();
 
     if (descMatches(energyRegex).exists()) {
 
         if (!checkInMorning) {
             toastLog("防止小树的提示遮挡,等待中");
-            time.mysleep(constant.SEC_2);
+            timepkg.mysleep(constantpkg.SEC_2);
         }
-        //这里存在一定的问题：如果time.mysleep时间短的话，就会出现循环代码在运行，循环之后的代码也在运行，感觉出现了异步，具体原因不明
+        //这里存在一定的问题：如果timepkg.mysleep时间短的话，就会出现循环代码在运行，循环之后的代码也在运行，感觉出现了异步，具体原因不明
         descMatches(energyRegex).find().forEach(function(pos) {
             var posb = pos.bounds();
             //toastLog( posb.centerX());
             click(posb.centerX(), posb.centerY() - 50);
-            time.mysleep(constant.SEC_2 * 3);
+            timepkg.mysleep(constantpkg.SEC_2 * 3);
         });
     }
     toastLog("自己能量收集完成");
-    time.mysleep(constant.SEC_1);
+    timepkg.mysleep(constantpkg.SEC_2);
 }
 
 // 从支付宝主页进入蚂蚁森林我的主页
@@ -190,7 +190,7 @@ function enterMayiForestMainPage() {
         data: "alipays://platformapi/startapp?appId=60000002",
         packageName: "com.eg.android.AlipayGphone"
     });
-    time.mysleep(constant.ONE_SECOND);
+    timepkg.mysleep(constantpkg.ONE_SECOND * 2);
 }
 
 function checkIsMayiForestMainPage() {
@@ -199,16 +199,16 @@ function checkIsMayiForestMainPage() {
 }
 
 function enterMyMainPage() {
-    dev.wakeUp();
+    devpkg.wakeUp();
     for (i = 0; i < 3; ++i) {
         enterMayiForestMainPage();
         if (!checkIsMayiForestMainPage()) {
-            dev.unlockAliPay();
+            devpkg.unlockAliPay();
         }
         if (i < 1) {
             goBack();
         }
-        time.mysleep(constant.SEC_2);
+        timepkg.mysleep(constantpkg.SEC_2);
     }
 }
 

@@ -1,4 +1,8 @@
 // 抛出异常，停止本轮操作
+var utilpkg = require('./util.js');
+var timepkg = require('./time.js');
+var constantpkg = require('./constant.js');
+
 function throwException(err_msg) {
     toastLog(err_msg);
     throw Error(err_msg);
@@ -20,9 +24,9 @@ function isMorningTime() {
 
 function getSleepTime() {
     if (isMorningTime()) {
-        return MORNING_SLEEP_TIME;
+        return constantpkg.MORNING_SLEEP_TIME;
     }
-    return NORMAL_SLEEP_TIME;
+    return constantpkg.NORMAL_SLEEP_TIME;
 }
 
 
@@ -36,14 +40,14 @@ function clickByDesc(energyType, paddingY, noFindExit, exceptionMsg) {
         descEndsWith(energyType).find().forEach(function(pos) {
             var posb = pos.bounds();
             click(posb.centerX(), posb.centerY() - paddingY);
-            time.mysleep(constant.SEC_2);
+            timepkg.mysleep(constantpkg.SEC_2);
         });
     } else {
         if (noFindExit != null && noFindExit) {
             if (exceptionMsg != null) {
-                util.throwException(exceptionMsg);
+                utilpkg.throwException(exceptionMsg);
             } else {
-                util.throwException("clickByDesc错误");
+                utilpkg.throwException("clickByDesc错误");
             }
         }
     }
@@ -61,9 +65,9 @@ function clickByText(energyType, noFindExit, exceptionMsg) {
     } else {
         if (noFindExit != null && noFindExit) {
             if (exceptionMsg != null) {
-                util.throwException(exceptionMsg)
+                utilpkg.throwException(exceptionMsg)
             } else {
-                util.throwException("clickByText错误");
+                utilpkg.throwException("clickByText错误");
             }
         }
     }
