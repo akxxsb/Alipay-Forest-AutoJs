@@ -95,8 +95,8 @@ function unlockAliPay() {
 }
 
 module.exports = {
-	getCapturePerm: getCapturePerm,
-	getCaptureImg: getCaptureImg,
-	unlock: unlock,
-	wakeUp: wakeUp,
+    getCapturePerm: getCapturePerm,
+    getCaptureImg: getCaptureImg,
+    unlock: unlock,
+    wakeUp: wakeUp,
 };

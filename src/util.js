@@ -70,7 +70,7 @@ function clickByText(energyType, noFindExit, exceptionMsg) {
 }
 
 function checkNeedRun() {
-	var now = new Date();
+    var now = new Date();
     var hour = now.getHours();
     var minu = now.getMinutes();
     if (hour >= 22) {
@@ -86,10 +86,10 @@ function checkNeedRun() {
 }
 
 module.exports = {
-	throwException: throwException,
-	isMorningTime: isMorningTime,
-	getSleepTime: getSleepTime,
-	clickByDesc: clickByDesc,
-	clickByText: clickByText,
-	checkNeedRun: checkNeedRun,
+    throwException: throwException,
+    isMorningTime: isMorningTime,
+    getSleepTime: getSleepTime,
+    clickByDesc: clickByDesc,
+    clickByText: clickByText,
+    checkNeedRun: checkNeedRun,
 };
