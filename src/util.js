@@ -1,5 +1,4 @@
 // 抛出异常，停止本轮操作
-var utilpkg = require('./util.js');
 var timepkg = require('./time.js');
 var constantpkg = require('./constant.js');
 
@@ -45,9 +44,9 @@ function clickByDesc(energyType, paddingY, noFindExit, exceptionMsg) {
     } else {
         if (noFindExit != null && noFindExit) {
             if (exceptionMsg != null) {
-                utilpkg.throwException(exceptionMsg);
+                throwException(exceptionMsg);
             } else {
-                utilpkg.throwException("clickByDesc错误");
+                throwException("clickByDesc错误");
             }
         }
     }
@@ -65,9 +64,9 @@ function clickByText(energyType, noFindExit, exceptionMsg) {
     } else {
         if (noFindExit != null && noFindExit) {
             if (exceptionMsg != null) {
-                utilpkg.throwException(exceptionMsg)
+                throwException(exceptionMsg)
             } else {
-                utilpkg.throwException("clickByText错误");
+                throwException("clickByText错误");
             }
         }
     }
