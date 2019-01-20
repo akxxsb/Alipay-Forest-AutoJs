@@ -24,6 +24,7 @@ function unregister() {
     toastLog("移除监听事件");
 }
 
+
 module.exports = {
     register: register,
     unregister: unregister,  

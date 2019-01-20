@@ -6,7 +6,7 @@ var SEC_LOW = 200,
 
 // 早上3分钟检查一次, 平时20分钟检查一次
 var MORNING_SLEEP_TIME = ONE_MIN * 3;
-var NORMAL_SLEEP_TIME = ONE_MIN * 10;
+var NORMAL_SLEEP_TIME = ONE_MIN * 25;
 var HAND_IMG = images.read("./resource/handPic.bmp");
 
 module.exports = {

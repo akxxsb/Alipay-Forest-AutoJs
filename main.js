@@ -16,10 +16,10 @@ function main() {
 
         sleep_time = utilpkg.getSleepTime();
         if (sleep_time > constantpkg.ONE_MIN) {
-            var minu = sleep_time / constantpkg.ONE_MIN;
+            var minu = parseInt(sleep_time / constantpkg.ONE_MIN);
             toastLog(minu + " 分后再次运行");
         } else {
-            var sec = sleep_time / constantpkg.ONE_SECOND;
+            var sec = parseInt(sleep_time / constantpkg.ONE_SECOND);
             toastLog(sec + " 秒后再次运行");
         }
         timepkg.mysleep(sleep_time);
