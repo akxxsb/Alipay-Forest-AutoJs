@@ -7,6 +7,7 @@ function throwException(err_msg) {
     throw Error(err_msg);
 }
 
+
 // 检查是不是早上
 function isMorningTime() {
     var now = new Date();
@@ -21,6 +22,7 @@ function isMorningTime() {
     return false;
 }
 
+
 function getSleepTime() {
     if (isMorningTime()) {
         return constantpkg.MORNING_SLEEP_TIME;
@@ -32,48 +34,33 @@ function getSleepTime() {
 }
 
 
-/**
- * 根据描述值 点击
- * @param energyType
- * @param noFindExit
- */
-function clickByDesc(energyType, paddingY, noFindExit, exceptionMsg) {
-    if (descEndsWith(energyType).exists()) {
-        descEndsWith(energyType).find().forEach(function(pos) {
-            var posb = pos.bounds();
-            click(posb.centerX(), posb.centerY() - paddingY);
-            timepkg.mysleep(constantpkg.SEC_2);
+function clickByDesc(desc, adjustY, noFindExit, err_msg) {
+    var w = selector().descEndsWith(desc).find();
+    if (!w.empty()) {
+        w.forEach(function(item) {
+            item.click();
         });
     } else {
-        if (noFindExit != null && noFindExit) {
-            if (exceptionMsg != null) {
-                throwException(exceptionMsg);
-            } else {
-                throwException("clickByDesc错误");
-            }
-        }
+        err_msg = err_msg ? err_msg : "clickByDesc error";
+        func = noFindExit ? throwException : toastLog;
+        func(err_msg);
     }
 }
 
-/**
- * 根据text值 点击 * @param energyType * @param noFindExit
- */
-function clickByText(energyType, noFindExit, exceptionMsg) {
-    if (textEndsWith(energyType).exists()) {
-        textEndsWith(energyType).find().forEach(function(pos) {
-            var posb = pos.bounds();
-            click(posb.centerX(), posb.centerY() - 60);
+
+function clickByText(text, noFindExit, err_msg) {
+    var w = selector().textEndsWith(text).find();
+    if (!w.empty()) {
+        w.forEach(function(item) {
+            item.click();
         });
     } else {
-        if (noFindExit != null && noFindExit) {
-            if (exceptionMsg != null) {
-                throwException(exceptionMsg)
-            } else {
-                throwException("clickByText错误");
-            }
-        }
+        err_msg = err_msg ? err_msg : "clickByText error";
+        func = noFindExit ? throwException : toastLog;
+        func(err_msg);
     }
 }
+
 
 function checkNeedRun() {
     var now = new Date();
@@ -90,6 +77,7 @@ function checkNeedRun() {
     }
     return true;
 }
+
 
 module.exports = {
     throwException: throwException,
