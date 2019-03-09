@@ -1,12 +1,12 @@
 var ONE_SECOND = 1000;
 var ONE_MIN = ONE_SECOND * 60;
-var SEC_LOW = 200,
-    SEC_1 = 250,
-    SEC_2 = 500;
+var SEC_LOW = 500,
+    SEC_1 = 1000,
+    SEC_2 = 2000;
 
 // 早上3分钟检查一次, 平时20分钟检查一次
-var MORNING_SLEEP_TIME = ONE_MIN * 3;
-var NORMAL_SLEEP_TIME = ONE_MIN * 25;
+var MORNING_SLEEP_TIME = ONE_MIN * 1.5;
+var NORMAL_SLEEP_TIME = ONE_MIN * 22;
 var HAND_IMG = images.read("./resource/handPic.bmp");
 
 module.exports = {

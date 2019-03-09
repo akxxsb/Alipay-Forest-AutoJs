@@ -149,7 +149,6 @@ function enterOthers() {
 
 // 退出蚂蚁森林界面
 function goBack() {
-    launchApp("支付宝");
     for (var i = 0; i < 3; ++i) {
         back();
         timepkg.mysleep(constantpkg.SEC_2);
@@ -200,10 +199,11 @@ function checkIsMayiForestMainPage() {
 
 function enterMyMainPage() {
     devpkg.wakeUp();
-    for (i = 0; i < 3; ++i) {
+    for (i = 0; i < 2; ++i) {
         enterMayiForestMainPage();
         if (!checkIsMayiForestMainPage()) {
             devpkg.unlockAliPay();
+            enterMayiForestMainPage();
         }
         if (i < 1) {
             goBack();
@@ -227,6 +227,7 @@ function generateCollectionType() {
         }
     });
     regex += "/";
+    toastLog("reg: "+regex);
     return regex;
 }
 
