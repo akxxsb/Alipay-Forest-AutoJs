@@ -149,7 +149,7 @@ function enterOthers() {
 
 // 退出蚂蚁森林界面
 function goBack() {
-    for (var i = 0; i < 3; ++i) {
+    for (var i = 0; i < 1; ++i) {
         back();
         timepkg.mysleep(constantpkg.SEC_2);
     }
