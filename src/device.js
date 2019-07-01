@@ -4,7 +4,8 @@ var constantpkg = require('./constant.js');
 var timepkg = require('./time.js');
 
 function getCapturePerm() {
-    setScreenMetrics(1080, 1920);
+    auto.waitFor();
+    setScreenMetrics(1080, 2248);
     //请求截图
     toastLog("开始截图");
     if (!requestScreenCapture()) {
@@ -23,55 +24,36 @@ function getCaptureImg() {
     return img0;
 }
 
+function do_unlock(passwd) {
+    var row = [1300, 1500, 1700, 1900];
+    var col = [240, 540, 840];
+
+    // [0-9]
+    var digit_pos = [[row[3], col[1]]];
+    for (var row_i = 0; row_i < 3; ++row_i) {
+        for (var col_i = 0; col_i < 3; ++col_i) {
+            digit_pos.push([row[row_i], col[col_i]])
+        }
+    }
+
+    for (var i = 0; i < passwd.length; ++i) {
+        var pos = digit_pos[parseInt(passwd[i])];
+        press(pos[1], pos[0], 150);
+        sleep(150);
+    }
+}
+
 //解锁手机屏幕
 function unlock() {
-    var ts = 20,
-        i = 0,
-        long_ts = 200;
     for (i = 0; i < 3; ++i) {
         if (!device.isScreenOn()) {
             wakeUp();
             //滑动屏幕到输入密码界面
             swipe(500, 1600, 500, 700, 502);
-            timepkg.mysleep(long_ts);
-            toastLog("开始解锁");
-            //切换大小写
-            click(60, 1560);
-            timepkg.mysleep(long_ts);
+            timepkg.mysleep(constantpkg.SEC_LOW);
 
-            click(80, 1400);
-            timepkg.mysleep(ts);
-            click(438, 1560);
-            timepkg.mysleep(ts);
-            click(438, 1560);
-            timepkg.mysleep(ts);
-            click(266, 1240);
-            timepkg.mysleep(ts);
-            click(1020, 1240);
-            timepkg.mysleep(ts);
-            click(480, 1240);
-            timepkg.mysleep(ts);
-            click(266, 1240);
-            timepkg.mysleep(ts);
-            click(300, 1400);
-            timepkg.mysleep(ts);
-
-            //切换数字
-            click(130, 1710);
-            timepkg.mysleep(long_ts);
-
-            click(141, 1245);
-            timepkg.mysleep(ts);
-            click(1002, 1245);
-            timepkg.mysleep(ts);
-            click(40, 1245);
-            timepkg.mysleep(ts);
-            click(40, 1245);
-            timepkg.mysleep(ts);
-            click(978, 1700);
-            timepkg.mysleep(constantpkg.SEC_2);
+            do_unlock(constantpkg.PASSWD)
             back();
-            timepkg.mysleep(constantpkg.ONE_SECOND);
         }
         timepkg.mysleep(constantpkg.SEC_LOW);
     }
@@ -83,15 +65,11 @@ function wakeUp() {
     var i = 0;
     for (i = 0; i < 3; ++i) {
         device.wakeUpIfNeeded();
-        timepkg.mysleep(constantpkg.SEC_2);
+        timepkg.mysleep(constantpkg.SEC_LOW);
     }
 }
 
 function unlockAliPay() {
-    click(195, 1170);
-    click(835, 1170);
-    click(500, 1170);
-    click(500, 1400);
     timepkg.mysleep(constantpkg.SEC_LOW);
 }
 

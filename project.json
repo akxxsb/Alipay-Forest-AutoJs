@@ -1,10 +1,1 @@
-{
-    "name": "新建项目",
-    "main": "main.js",
-    "ignore": [
-        "build"
-    ],
-    "packageName": "com.example",
-    "versionName": "1.0.0",
-    "versionCode": 1
-}
+{"assets":["test.js",".git/hooks/pre-applypatch.sample",".git/hooks/prepare-commit-msg.sample",".git/hooks/update.sample",".git/hooks/applypatch-msg.sample",".git/hooks/pre-rebase.sample",".git/hooks/commit-msg.sample",".git/hooks/pre-receive.sample",".git/hooks/fsmonitor-watchman.sample",".git/hooks/post-update.sample",".git/hooks/pre-push.sample",".git/hooks/pre-commit.sample",".git/index",".git/description",".git/config",".git/refs/stash",".git/refs/remotes/origin/HEAD",".git/refs/remotes/origin/master",".git/refs/heads/master",".git/ORIG_HEAD",".git/HEAD",".git/info/exclude",".git/packed-refs",".git/objects/80/f3029533608fdb3787402516b974be105093ba",".git/objects/a3/bb2209c0350d02e01208e141bad6f624d72f6c",".git/objects/38/945578203f278be2502f7256d5ed495b4d618b",".git/objects/f8/cba8673c5e22fe23218024436dbb1368fbc4ce",".git/objects/d3/03eb02cb601eec02a05b8d217584020cc3bf85",".git/objects/b0/ec5163ff7eac0436e80b542559428f731c4792",".git/objects/pack/pack-c9c8944b0e9a75049492207d5e4d690fce5de92e.idx",".git/objects/pack/pack-c9c8944b0e9a75049492207d5e4d690fce5de92e.pack",".git/objects/58/5fe50fa446d75bf30daf412c5bd1dc1738bde5",".git/objects/2a/7b9080c5e65b61b38f9c331a1bfb366a31f7f6",".git/logs/refs/remotes/origin/HEAD",".git/logs/refs/remotes/origin/master",".git/logs/refs/stash",".git/logs/refs/heads/master",".git/logs/HEAD",".git/FETCH_HEAD","back_up/蚂蚁.js","back_up/Alipay_collect_energy_Optimize.js","resource/handPic.bmp","resource/ok.jpg","project.json","README.md","src/events.js","src/util.js","src/.gitkeep","src/test.js","src/ant_logic.js","src/device.js","src/time.js","src/constant.js"],"main":"main.js","name":"akxxsb","packageName":"com.example","versionCode":1,"versionName":"1.0.0"}

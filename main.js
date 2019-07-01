@@ -12,7 +12,7 @@ function main() {
     var run_times = 1;
     for (;;) {
         toastLog("第" + run_times + "次运行");
-        event_loop();
+        event_loop(run_times);
 
         sleep_time = utilpkg.getSleepTime();
         if (sleep_time > constantpkg.ONE_MIN) {
@@ -29,8 +29,8 @@ function main() {
 
 main();
 //程序主入口
-function event_loop() {
-    if (!utilpkg.checkNeedRun()) {
+function event_loop(loop) {
+    if (loop > 1 && !utilpkg.checkNeedRun()) {
         return false;
     }
 
@@ -52,6 +52,5 @@ function event_loop() {
         console.clear();
         toastLog(error);
     }
-    antpkg.goBack();
     return true;
 }

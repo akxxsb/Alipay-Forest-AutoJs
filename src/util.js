@@ -27,9 +27,7 @@ function getSleepTime() {
     if (isMorningTime()) {
         return constantpkg.MORNING_SLEEP_TIME;
     }
-    var rand_l = 0, rand_r = constantpkg.ONE_MIN * 2;
-    var extra = random(rand_l, rand_r) * random(0, 5);
-    var res = constantpkg.NORMAL_SLEEP_TIME + extra;
+    var res = constantpkg.NORMAL_SLEEP_TIME;
     return res;
 }
 
@@ -38,7 +36,8 @@ function clickByDesc(desc, adjustY, noFindExit, err_msg) {
     var w = selector().descEndsWith(desc).find();
     if (!w.empty()) {
         w.forEach(function(item) {
-            item.click();
+            var b = item.bounds();
+            click(b.centerX(), b.centerY());
         });
     } else {
         err_msg = err_msg ? err_msg : "clickByDesc error";
@@ -52,7 +51,8 @@ function clickByText(text, noFindExit, err_msg) {
     var w = selector().textEndsWith(text).find();
     if (!w.empty()) {
         w.forEach(function(item) {
-            item.click();
+            var b = item.bounds();
+            click(b.centerX(), b.centerY());
         });
     } else {
         err_msg = err_msg ? err_msg : "clickByText error";
