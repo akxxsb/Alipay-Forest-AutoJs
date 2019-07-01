@@ -103,8 +103,15 @@ function collect_friends_energy() {
     }
 }
 
-// 退出蚂蚁森林界面
-function go_back_to_ali_main_page() {
+// 进入支付宝首页
+function enter_to_ali_main_page() {
+    toastLog("打开支付宝首页");
+    app.startActivity({
+        action: "android.intent.action.VIEW",
+        data: "alipays://platformapi/startapp?appId=60000002",
+        packageName: "com.eg.android.AlipayGphone"
+    });
+
     for (var i = 0; i < 6; ++i) {
         if(checkIsAliMainPage()){
             break;
@@ -143,21 +150,24 @@ function checkIsAliMainPage() {
 
 function enter_mayi_main_page() {
     devpkg.wakeUp();
+    for (var i = 0; i < 5; ++i) {
+        enter_to_ali_main_page();
+        if (checkIsAliMainPage()) {
+            break;
+        }
+        timepkg.mysleep(constantpkg.SEC_1);
+    }
 
-    app.startActivity({
-        action: "android.intent.action.VIEW",
-        data: "alipays://platformapi/startapp?appId=60000002",
-        packageName: "com.eg.android.AlipayGphone"
-    });
-
-    go_back_to_ali_main_page();
-    for (i = 0; i < 5; ++i) {
+    for (var i = 0; i < 6; ++i) {
         if (text("种树").exists()) {
             waitPage(0);
             break;
         }
         utilpkg.clickByText("蚂蚁森林", false, "进入我的主页失败");
         timepkg.mysleep(constantpkg.SEC_1);
+        if (i == 5) {
+            utilpkg.throwException("打开蚂蚁森林失败, 退出本轮操作");
+        }
     }
 }
 
