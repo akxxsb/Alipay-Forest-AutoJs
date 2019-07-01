@@ -1,8 +1,8 @@
-//获取权限和设置参数prepareThings
 var utilpkg = require('./util.js');
 var constantpkg = require('./constant.js');
 var timepkg = require('./time.js');
 
+//获取权限
 function getCapturePerm() {
     auto.waitFor();
     setScreenMetrics(1080, 2248);

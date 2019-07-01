@@ -40,13 +40,13 @@ function event_loop(loop) {
     try {
         devpkg.unlock();
         // 进入蚂蚁森林主页
-        antpkg.enterMyMainPage();
+        antpkg.enter_mayi_main_page();
         //收集自己的能量
-        antpkg.collectionMyEnergy();
+        antpkg.collect_my_energy();
         //进入排行榜
-        antpkg.enterRank();
+        antpkg.enter_rank_board();
         //在排行榜检测是否有好有的能量可以收集
-        antpkg.enterOthers();
+        antpkg.collect_friends_energy();
     } catch (error) {
         console.show();
         console.clear();
