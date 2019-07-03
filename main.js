@@ -1,3 +1,4 @@
+"auto";
 var utilpkg = require('./src/util.js');
 var devpkg = require('./src/device.js');
 var constantpkg = require('./src/constant.js');
