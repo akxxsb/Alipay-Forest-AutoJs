@@ -9,11 +9,11 @@ var myEnergeType = ["收集能量"];
 function waitPage(type) {
     // 等待进入自己的能量主页
     if (type == 0) {
-        text("种树").findOne(10 * constantpkg.SEC_1);
+        desc("种树").findOne(10 * constantpkg.SEC_1);
     }
     // 等待进入他人的能量主页
     else if (type == 1) {
-        text("浇水").findOne(10 * constantpkg.SEC_1);
+        desc("浇水").findOne(10 * constantpkg.SEC_1);
     }
 }
 
@@ -26,7 +26,7 @@ function enter_rank_board() {
     swipe(520, 1600, 520, 400, 1000);
     timepkg.mysleep(constantpkg.SEC_1);
 
-    utilpkg.clickByText("查看更多好友", true, "程序未找到排行榜入口,脚本退出");
+    utilpkg.clickByDesc("查看更多好友", true, "程序未找到排行榜入口,脚本退出");
 
     for (var i = 0; i < 5; ++i) {
         if (textEndsWith("好友排行榜").exists()) {
@@ -43,8 +43,8 @@ function isRankEnd() {
     if (!textEndsWith("好友排行榜").exists()) {
         return true;
     }
-    if (textEndsWith("没有更多了").exists()) {
-        var b = textEndsWith("没有更多了").findOne().bounds();
+    if (descEndsWith("没有更多了").exists()) {
+        var b = descEndsWith("没有更多了").findOne().bounds();
         toastLog("没有更多了 pos: "+ "(" + b.centerX() + "," + b.centerY() + ")");
         if (b.centerY() < 2200) {
             toastLog("排行榜结束");
@@ -66,14 +66,17 @@ function getHasEnergyfriend(type) {
 function collect_friends_energy() {
     toastLog("检查排行榜");
 
+    // 连续多少次没有检测到能量了, 用于容错，连续50次没检测到就退出
+    var no_energy_count = 0;
     //确保当前操作是在排行榜界面
     while (textEndsWith("好友排行榜").exists()) {
         timepkg.mysleep(constantpkg.SEC_LOW);
         var pos = getHasEnergyfriend(1);
         var isEnd = isRankEnd();
 
-        if (pos == null && isEnd) {
-            toastLog("排行榜结束了,程序即将退出");
+        no_energy_count = (pos == null ? no_energy_count+1 : 0);
+        if (no_energy_count >= 50 || (pos == null && isEnd)) {
+            toastLog("排行榜结束了,程序即将退出, no_energy_count:" + no_energy_count);
             return false;
         }
 
@@ -106,6 +109,7 @@ function collect_friends_energy() {
 // 进入支付宝首页
 function enter_to_ali_main_page() {
     toastLog("打开支付宝首页");
+    launchApp("支付宝");
     app.startActivity({
         action: "android.intent.action.VIEW",
         data: "alipays://platformapi/startapp?appId=60000002",
@@ -122,7 +126,7 @@ function enter_to_ali_main_page() {
 }
 
 function do_collect_energy(energyRegex) {
-    textMatches(energyRegex).find().forEach(function(pos) {
+    descMatches(energyRegex).find().forEach(function(pos) {
         var posb = pos.bounds();
         click(posb.centerX(), posb.centerY() - 50);
         toastLog("点击的位置为：" + posb.centerX() + ":" + (posb.centerY()-50));
@@ -159,7 +163,7 @@ function enter_mayi_main_page() {
     }
 
     for (var i = 0; i < 6; ++i) {
-        if (text("种树").exists()) {
+        if (desc("种树").exists()) {
             waitPage(0);
             break;
         }
