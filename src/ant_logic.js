@@ -78,7 +78,7 @@ function collect_friends_energy() {
         no_energy_count = (pos == null ? no_energy_count+1 : 0);
         if (no_energy_count >= 50 || (pos == null && isEnd)) {
             toastLog("排行榜结束了,程序即将退出, no_energy_count:" + no_energy_count);
-            return false;
+            break;
         }
 
         toastLog("能量 pos:" + pos);
@@ -108,22 +108,33 @@ function collect_friends_energy() {
     toastLog("收取好友能量结束");
     timepkg.mysleep(constantpkg.SEC_2);
     back();
+    timepkg.mysleep(constantpkg.SEC_1);
+    back();
 }
 
 // 进入支付宝首页
 function enter_to_ali_main_page() {
     toastLog("打开支付宝首页");
-    launchApp("支付宝");
-    app.startActivity({
+
+    home();
+    sleep(constantpkg.SEC_2);
+    click("支付宝", 2);
+    sleep(constantpkg.SEC_2);
+
+    /*app.startActivity({
         action: "android.intent.action.VIEW",
         data: "alipays://platformapi/startapp?appId=60000002",
         packageName: "com.eg.android.AlipayGphone"
-    });
+    });*/
 
     for (var i = 0; i < 6; ++i) {
+        utilpkg.clickByText("首页", false, "点击首页失败");
+        timepkg.mysleep(constantpkg.SEC_LOW);
+
         if(checkIsAliMainPage()){
             break;
         }
+
         back();
         timepkg.mysleep(constantpkg.SEC_LOW);
     }
