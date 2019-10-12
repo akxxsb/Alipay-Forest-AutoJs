@@ -47,6 +47,7 @@ function do_unlock(passwd) {
 function unlock() {
     for (i = 0; i < 3; ++i) {
         if (!device.isScreenOn()) {
+            toastLog("解锁手机屏幕中");
             wakeUp();
             //滑动屏幕到输入密码界面
             swipe(500, 1600, 500, 700, 502);

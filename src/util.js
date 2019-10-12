@@ -13,7 +13,7 @@ function isMorningTime() {
     var now = new Date();
     var hour = now.getHours();
     var minu = now.getMinutes();
-    if (hour == 6 && minu >= 50) {
+    if (hour == 6 && minu >= 40) {
         return true;
     }
     if (hour == 7 && minu <= 50) {
@@ -79,13 +79,13 @@ function checkNeedRun() {
     var now = new Date();
     var hour = now.getHours();
     var minu = now.getMinutes();
-    if (hour >= 22) {
+    if (hour == 22) {
         return false;
     }
     if (hour > 0 && hour < 6) {
         return false;
     }
-    if (hour == 6 & minu < 30) {
+    if (hour == 6 & minu < 50) {
         return false;
     }
     return true;

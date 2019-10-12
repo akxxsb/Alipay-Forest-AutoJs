@@ -9,11 +9,11 @@ var myEnergeType = ["收集能量"];
 function waitPage(type) {
     // 等待进入自己的能量主页
     if (type == 0) {
-        utilpkg.text_equal("种树").findOne(10 * constantpkg.SEC_1);
+        utilpkg.text_ends_with("成就").findOne(10 * constantpkg.SEC_1);
     }
     // 等待进入他人的能量主页
     else if (type == 1) {
-        utilpkg.text_equal("浇水").findOne(10 * constantpkg.SEC_1);
+        utilpkg.text_ends_with("浇水").findOne(5 * constantpkg.SEC_1);
     }
 }
 
@@ -108,7 +108,7 @@ function collect_friends_energy() {
     toastLog("收取好友能量结束");
     timepkg.mysleep(constantpkg.SEC_2);
     back();
-    timepkg.mysleep(constantpkg.SEC_1);
+    timepkg.mysleep(constantpkg.SEC_2);
     back();
 }
 
@@ -118,7 +118,7 @@ function enter_to_ali_main_page() {
 
     home();
     sleep(constantpkg.SEC_2);
-    click("支付宝", 2);
+    utilpkg.clickByText("支付宝");
     sleep(constantpkg.SEC_2);
 
     /*app.startActivity({
@@ -128,7 +128,7 @@ function enter_to_ali_main_page() {
     });*/
 
     for (var i = 0; i < 6; ++i) {
-        utilpkg.clickByText("首页", false, "点击首页失败");
+        utilpkg.clickByText("首页", false, "");
         timepkg.mysleep(constantpkg.SEC_LOW);
 
         if(checkIsAliMainPage()){
@@ -156,6 +156,7 @@ function collect_my_energy() {
 
     var energyRegex = gen_collect_re();
     toastLog(energyRegex);
+    waitPage(0);
 
     if (utilpkg.text_matches(energyRegex).exists()) {
         do_collect_energy(energyRegex);
@@ -178,8 +179,7 @@ function enter_mayi_main_page() {
     }
 
     for (var i = 0; i < 6; ++i) {
-        if (utilpkg.text_equal("种树").exists()) {
-            waitPage(0);
+        if (utilpkg.text_contains("我的大树养成记录").exists()) {
             break;
         }
         utilpkg.clickByText("蚂蚁森林", false, "进入我的主页失败");
